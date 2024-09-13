@@ -3,7 +3,7 @@ import { IUserForgorPassword } from '@common/user/user.interface';
 import { DoneCallback, Job } from 'bull';
 import nodemailer from 'nodemailer';
 import { Queue } from 'bull';
-import { EMAIL_ACCOUNT, EMAIL_PASSWORD } from '@config/enviroment';
+import { EMAIL_ACCOUNT, EMAIL_PASSWORD } from '@config/environment';
 import { JobContant } from '@common/contstant/job.contant';
 
 export class MailerForgotPassword {
@@ -36,7 +36,7 @@ export class MailerForgotPassword {
                 <h3>Ma OTP cua ban la: <p style="background-color:green; padding:10px;box-sizing: border-box;">${job.data.otp}</p></h3>`,
             });
 
-            console.log(infor.messageId);
+            // console.log(infor.messageId);
             done();
         } catch (err) {
             console.error(err);

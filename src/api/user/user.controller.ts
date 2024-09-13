@@ -6,7 +6,7 @@ import { Response, Request, NextFunction } from 'express';
 import { Token } from '@config/token';
 import { IUserDataToken } from '@common/user/user.interface';
 import { statusCode } from '@config/errors';
-import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from '@config/enviroment';
+import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from '@config/environment';
 import { APIError } from '@common/error/api.error';
 import httpStatus from 'http-status';
 

@@ -1,6 +1,7 @@
 import ioredis, { Redis } from 'ioredis';
-import { NODE_ENV, REDIS_URL } from '@config/enviroment';
+import { NODE_ENV, REDIS_URL } from '@config/environment';
 import { QueueOptions } from 'bull';
+import logger from '@common/logger';
 
 /**
  * Singleton Redis client
@@ -33,20 +34,20 @@ export class RedisAdapter {
         });
 
         tmp.on('ready', () => {
-            // logger.info('Connect to redis successfully!');
+            logger.info('Connect to redis successfully!');
         });
         tmp.on('end', () => {
-            // logger.info('Connect to redis ended!');
+            logger.info('Connect to redis ended!');
         });
 
         tmp.on('error', (error) => {
-            // logger.error('Connect to redis error!', error);
+            logger.error('Connect to redis error!', error);
         });
 
         try {
             await tmp.connect();
         } catch (error) {
-            // logger.error('Connect to redis error!', error);
+            logger.error('Connect to redis error!', error);
             process.exit(1);
         }
 
@@ -71,14 +72,14 @@ export class RedisAdapter {
         });
 
         tmp.on('ready', () => {
-            // logger.info('Connect to redis successfully!');
+            logger.info('Connect to redis successfully!');
         });
         tmp.on('end', () => {
-            // logger.info('Connect to redis ended!');
+            logger.info('Connect to redis ended!');
         });
 
         tmp.on('error', (error) => {
-            // logger.error('Connect to redis error!', error);
+            logger.error('Connect to redis error!', error);
             process.exit(1);
         });
 
@@ -88,11 +89,11 @@ export class RedisAdapter {
     }
 
     static async disconnect(): Promise<void> {
-        // logger.info('Closing redis connection...');
+        logger.info('Closing redis connection...');
         try {
             await Promise.all(RedisAdapter.allClients.map((client) => client.quit()));
         } catch (error) {
-            // logger.error('Closing redis connection error!', error);
+            logger.error('Closing redis connection error!', error);
         }
     }
 

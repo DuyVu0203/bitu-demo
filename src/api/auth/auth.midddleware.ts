@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { statusCode } from '@config/errors';
 import { Token } from '@config/token';
-import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from '@config/enviroment';
+import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from '@config/environment';
 import { UserContant } from '@common/contstant/user.contant';
 import { APIError } from '@common/error/api.error';
 

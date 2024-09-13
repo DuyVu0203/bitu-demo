@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './router';
 import { ResponseMiddleware } from './response.middleware';
+import logger from '@common/logger';
 
 express.response.sendJson = function (data: object) {
     return this.json({ error_code: 0, message: 'OK', ...data });
@@ -61,7 +62,7 @@ export class ExpressServer {
     }
 
     public listen = (server: Express, port: number): Server => {
-        console.log('SERVER PORT :: ', port);
+        logger.info('SERVER PORT :: ', port);
         return server.listen(port);
     };
 

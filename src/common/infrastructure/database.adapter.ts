@@ -1,13 +1,15 @@
 import mongoose from 'mongoose';
-import { MONGODB_URL } from '@config/enviroment';
+import { MONGODB_URL } from '@config/environment';
+import logger from '@common/logger';
 
 export class DatabaseAdapter {
     public static async connection(): Promise<void> {
         try {
             await mongoose.connect(MONGODB_URL, {});
-            console.log('ConnectDB :: Sucess');
+            logger.info('ConnectDB :: Sucess');
         } catch (err) {
-            console.error('ConnectDB:: Err', err);
+            logger.info('Disconnect from mongodb successfully!');
+            logger.error('ConnectDB:: Err', err);
         }
     }
 
@@ -15,7 +17,7 @@ export class DatabaseAdapter {
         try {
             await mongoose.disconnect();
         } catch (err) {
-            console.error('DisconnectDB:: Err', err);
+            logger.error('DisconnectDB:: Err', err);
         }
     }
 }

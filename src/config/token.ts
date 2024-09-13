@@ -1,6 +1,6 @@
 import { IUserDataToken } from '@common/user/user.interface';
 import jwt from 'jsonwebtoken';
-import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from './enviroment';
+import { ACCESSTOKEN_SECRET, REFETCHTOKEN_SECRET } from './environment';
 export interface IToken {
     accessToken: string;
     refetchToken: string;

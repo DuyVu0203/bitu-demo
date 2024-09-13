@@ -1,7 +1,7 @@
 import { QueueService } from '@common/queue/queue.service';
 import { DoneCallback, Job, Queue } from 'bull';
 import nodemailer, { Transporter } from 'nodemailer';
-import { EMAIL_ACCOUNT, EMAIL_PASSWORD } from '@config/enviroment';
+import { EMAIL_ACCOUNT, EMAIL_PASSWORD } from '@config/environment';
 import { IConfirmSendMail } from '@common/booking/booking.interface';
 import { JobContant } from '@common/contstant/job.contant';
 
@@ -45,7 +45,7 @@ export class MailerConfirmBookingJob {
                 </p>`,
             });
 
-            console.log(infor.messageId);
+            // console.log(infor.messageId);
             done();
         } catch (err) {
             console.error(err);

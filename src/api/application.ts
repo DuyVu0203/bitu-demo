@@ -1,11 +1,12 @@
 import { BookingEvent } from '@common/booking/booking.event';
 import { DatabaseAdapter } from '@common/infrastructure/database.adapter';
-import { PORT } from '@config/enviroment';
+import { PORT } from '@config/environment';
 import { TicketCron } from '@common/ticket/ticket.cron';
 import { TickerEvent } from '@common/ticket/ticket.event';
 import { UserEvent } from '@common/user/user.event';
 import { ExpressServer } from '@api/server';
 import { RedisAdapter } from '@common/infrastructure/redis.adapter';
+import logger from '@common/logger';
 
 export class Application {
     public static createApplication = async (): Promise<ExpressServer> => {
@@ -35,23 +36,23 @@ export class Application {
 
     private static handleExit(express: ExpressServer) {
         process.on('uncaughtException', (err: unknown) => {
-            console.error('Uncaught exception', err);
+            logger.error('Uncaught exception', err);
             Application.shutdownProperly(1, express);
         });
         process.on('unhandledRejection', (reason: unknown | null | undefined) => {
-            console.error('Unhandled Rejection at promise', reason);
+            logger.error('Unhandled Rejection at promise', reason);
             Application.shutdownProperly(2, express);
         });
         process.on('SIGINT', () => {
-            console.info('Caught SIGINT, exitting!');
+            logger.info('Caught SIGINT, exitting!');
             Application.shutdownProperly(128 + 2, express);
         });
         process.on('SIGTERM', () => {
-            console.info('Caught SIGTERM, exitting');
+            logger.info('Caught SIGTERM, exitting');
             Application.shutdownProperly(128 + 2, express);
         });
         process.on('exit', () => {
-            console.info('Exiting process...');
+            logger.info('Exiting process...');
         });
     }
 
@@ -61,11 +62,11 @@ export class Application {
             .then(() => RedisAdapter.disconnect())
             .then(() => DatabaseAdapter.disconnect())
             .then(() => {
-                console.info('Shutdown complete, bye bye!');
+                logger.info('Shutdown complete, bye bye!');
                 process.exit(exitCode);
             })
             .catch((err) => {
-                console.error('Error during shutdown', err);
+                logger.error('Error during shutdown', err);
                 process.exit(1);
             });
     }
